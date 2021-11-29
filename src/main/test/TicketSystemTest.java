@@ -12,11 +12,6 @@ import static java.lang.System.in;
 
 class TicketSystemTest {
 
-//    @Test
-//    protected void testMain() {
-//        TicketSystem.main({});
-//    }
-
     @Test
     protected void testInputTicketID() {
         InputStream sysInBackup = in;

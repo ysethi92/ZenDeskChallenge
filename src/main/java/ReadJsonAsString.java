@@ -5,8 +5,7 @@ import java.nio.file.Paths;
 
 public class ReadJsonAsString {
 
-    protected String readFileAsString(String file) throws Exception
-    {
-        return new String(Files.readAllBytes(Paths.get(file)));
+    protected String readFileAsString(String filePath) throws Exception {
+        return new String(Files.readAllBytes(Paths.get(filePath)));
     }
 }

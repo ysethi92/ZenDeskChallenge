@@ -16,19 +16,21 @@ public class TicketSystem {
     public static void main(String[] args) {
         System.out.println("Welcome to the Ticket Viewer");
         boolean exit = false;
-        while(!exit) {
+        ConnectToZenDesk connectToZenDesk = new ConnectToZenDesk();
+        TicketsDisplay ticketsDisplay = new TicketsDisplay();
+        while (!exit) {
             System.out.println("\nEnter -help to view list of commands. Happy querying");
             System.out.println("To exit the Ticket Viewer enter exit");
             Scanner sc = new Scanner(System.in);
             String help = sc.nextLine();
             if (Objects.equals(help, "-help")) {
                 int option = 0;
+
                 System.out.println("\nPlease enter 1 to view all the tickets");
                 System.out.println("Please enter 2 to view a ticket");
                 System.out.println("Please enter 3 to go back to main screen");
                 System.out.println("Please enter 4 to exit.\n");
-                ConnectToZenDesk connectToZenDesk = new ConnectToZenDesk();
-                TicketsDisplay ticketsDisplayer = new TicketsDisplay();
+
                 do {
                     try {
                         System.out.println("Please select an option : ");
@@ -37,7 +39,7 @@ public class TicketSystem {
                         switch (option) {
                             case 1:
                                 data = connectToZenDesk.getDataFromAPI(ALL_TICKETS, "GET");
-                                ticketsDisplayer.displayAllTickets(data);
+                                ticketsDisplay.displayAllTickets(data);
                                 break;
 
                             case 2:
@@ -49,10 +51,10 @@ public class TicketSystem {
                                     int ticketID = inputTicketID(totalTickets);
 
                                     data = connectToZenDesk.getDataFromAPI(SINGLE_TICKET + ticketID + ".json", "GET");
-                                    ticketsDisplayer.displaySingleTicket(data, ticketID);
-                                    System.out.println("Want to see more tickets?(Y/N)");
+                                    ticketsDisplay.displaySingleTicket(data, ticketID);
+                                    System.out.println("Want to see more tickets?(Enter Y)");
                                     char c = sc.next().charAt(0);
-                                    if (c != 'Y') {
+                                    if (Character.toUpperCase(c) != 'Y') {
                                         break;
                                     }
                                 }
@@ -74,7 +76,7 @@ public class TicketSystem {
             } else if (Objects.equals(help, "exit")) {
                 break;
             } else {
-                System.out.println("Wrong input, you may want to type -help");
+                System.out.println("Wrong input, you may want to type -help or exit");
             }
         }
         System.out.println("\n Thankyou for using ZenDesk!!");
