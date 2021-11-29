@@ -12,11 +12,11 @@ public class TicketsDisplay {
 
     protected void displayAllTickets(String json) {
         try {
-            JSONObject jsonObject = new JSONObject(json);
-            JSONArray tickets = jsonObject.getJSONArray("tickets");
-            int numPages = (int) Math.ceil((float) tickets.length()/25);
+            JSONArray tickets = getAllTickets(json);
+
+            int numPages = (int) Math.ceil((float) tickets.length() / 25);
             System.out.format("%3s %20s%60s%20s%n", "ID", "Subject", "Type", "Priority");
-            for(int i = 0; i<(Math.min(tickets.length(), 25)); i++) {
+            for (int i = 0; i < (Math.min(tickets.length(), 25)); i++) {
                 JSONObject ticketDetails = tickets.getJSONObject(i);
                 System.out.format("%3d       %-70s  %-18s %5s%n",
                         ticketDetails.getInt("id"),
@@ -28,7 +28,7 @@ public class TicketsDisplay {
             if(numPages > 1) {
                 Scanner sc = new Scanner(System.in);
                 while (true) {
-                    System.out.println("\nWant to see more tickets?(Enter Y)");
+                    System.out.println("\nWant to see more tickets?(Enter Y(Yes) or anything else to exit)");
                     char decision = sc.next().charAt(0);
                     if (Character.toUpperCase(decision) == 'Y') {
                         try {
@@ -81,5 +81,20 @@ public class TicketsDisplay {
         } catch (JSONException e) {
             System.out.println("Something went wrong with the data received from the server.");
         }
+    }
+
+    protected JSONArray getAllTickets(String json) {
+        JSONObject jsonObject = new JSONObject(json);
+        JSONArray tickets = jsonObject.getJSONArray("tickets");
+        ConnectToZenDesk zd = new ConnectToZenDesk();
+        while (!jsonObject.isNull("next_page")) {
+            String data = zd.getDataFromAPI(jsonObject.getString("next_page"), "GET");
+            jsonObject = new JSONObject(data);
+            JSONArray temp = jsonObject.getJSONArray("tickets");
+            for (int i = 0; i < temp.length(); i++) {
+                tickets.put(temp.getJSONObject(i));
+            }
+        }
+        return tickets;
     }
 }
