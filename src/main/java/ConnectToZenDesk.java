@@ -1,15 +1,13 @@
 package src.main.java;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.Authenticator;
 import java.net.HttpURLConnection;
 import java.net.PasswordAuthentication;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Objects;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
 public class ConnectToZenDesk {
@@ -67,9 +65,17 @@ public class ConnectToZenDesk {
 
     private static final class BasicAuthenticator extends Authenticator {
         protected PasswordAuthentication getPasswordAuthentication() {
-            String user = "ysethi92@gmail.com";
-            String password = "Yash@1234";
-            return new PasswordAuthentication(user, password.toCharArray());
+            // reading user Credentials from Config File.
+            Properties prop = new Properties();
+            InputStream input = null;
+            try {
+                input = new FileInputStream("src/main/resources/config.properties");
+                prop.load(input);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return new PasswordAuthentication(prop.getProperty("UserName"), prop.getProperty("Password").toCharArray());
+
         }
     }
 }
