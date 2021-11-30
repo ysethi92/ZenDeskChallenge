@@ -69,7 +69,8 @@ public class ConnectToZenDesk {
             Properties prop = new Properties();
             InputStream input = null;
             try {
-                input = new FileInputStream("src/main/resources/config.properties");
+                ClassLoader classLoader = getClass().getClassLoader();
+                input = classLoader.getResourceAsStream("src/main/resources/config.properties");
                 prop.load(input);
             } catch (IOException e) {
                 e.printStackTrace();

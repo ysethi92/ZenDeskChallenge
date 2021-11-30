@@ -13,6 +13,9 @@ The Project is developed using Java(version - 11.0.1).
 # Running the Project.
 
 * Clone the project and save it locally.
+* Locate the config.properties file in : ``` src/main/resources ``` folder and add correct login credentials for an account.
+* Rebuild the artifacts, to update the jar file contents with the correct credentials. 
+  * If using Intellij, go to ```Build->Build Artifacts..->Rebuild```
 * In the project folder, navigate to the below mentioned path and open the terminal there.
 * The above path contains a jar file of the project that can be run on the command line.
 * After opening the terminal in the above path, run the below mentioned command.
