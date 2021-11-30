@@ -12,9 +12,11 @@ public class TicketSystem {
     final static String SINGLE_TICKET = "https://zccysethi92.zendesk.com/api/v2/tickets/";
     final static String CREATE_TICKETS = "https://zccysethi92.zendesk.com/api/v2/imports/tickets/create_many.json";
 
+    // contains the main flow of the Ticket Viewer
     public static void main(String[] args) {
-
+        System.out.println("-".repeat(30));
         System.out.println("Welcome to the Ticket Viewer");
+        System.out.println("-".repeat(30));
         boolean exit = false;
         ConnectToZenDesk connectToZenDesk = new ConnectToZenDesk();
         TicketsDisplay ticketsDisplay = new TicketsDisplay();
@@ -32,11 +34,13 @@ public class TicketSystem {
                     option = sc.nextInt();
                     String data;
                     switch (option) {
+                        // displays all tickets
                         case 1:
                             data = connectToZenDesk.getDataFromAPI(ALL_TICKETS, "GET");
                             ticketsDisplay.displayAllTickets(data);
                             break;
 
+                        // displays the ticket, which user asks for.
                         case 2:
                             String ticketCount = connectToZenDesk.getDataFromAPI(COUNT_TICKETS, "GET");
                             JSONObject jsonObject = new JSONObject(ticketCount);
@@ -55,6 +59,7 @@ public class TicketSystem {
                             }
                             break;
 
+                        // close connection and exits the ticket viewer.
                         default:
                             connectToZenDesk.closeConnection();
                             exit = true;
@@ -69,6 +74,7 @@ public class TicketSystem {
         System.out.println("\n Thankyou for using ZenDesk!!");
     }
 
+    // inputs ticket id till a valid one is entered and then returns it.
     public static int inputTicketID(int totalTickets) {
         Scanner sc = new Scanner(System.in);
         int ticketID;

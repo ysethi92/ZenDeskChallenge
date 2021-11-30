@@ -11,7 +11,7 @@ class ConnectToZenDeskTest {
         ConnectToZenDesk connectToZenDesk = new ConnectToZenDesk();
         String link = "https://zccysethi92.zendesk.com/api/v2/tickets.json";
         Assertions.assertNotEquals("", connectToZenDesk.getDataFromAPI(link, "GET"));
-        Assertions.assertEquals("", connectToZenDesk.getDataFromAPI(link, "GT"));
-        Assertions.assertEquals("", connectToZenDesk.getDataFromAPI("https://zccysethi92.zendesk.com/api/v2/tickets.jso", "GET"));
+        Assertions.assertEquals("", connectToZenDesk.getDataFromAPI(link, "GT")); // wrong request type
+        Assertions.assertEquals("", connectToZenDesk.getDataFromAPI("https://zccysethi92.zendesk.com/api/v2/tickets.jso", "GET")); // broken link
     }
 }

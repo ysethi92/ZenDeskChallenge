@@ -16,6 +16,7 @@ public class ConnectToZenDesk {
 
     HttpURLConnection http = null;
 
+    // return the server json response
     public String getDataFromAPI(String link, String requestType) {
         try {
             URL url = new URL(link);
@@ -24,6 +25,7 @@ public class ConnectToZenDesk {
             http.setDoOutput(true);
             http.setRequestProperty("Content-Type", "application/json");
 
+            // used to add the user credentials
             Authenticator.setDefault(new BasicAuthenticator());
 
             // For adding test tickets to Zendesk dashboard.
