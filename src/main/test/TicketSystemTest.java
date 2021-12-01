@@ -19,18 +19,6 @@ class TicketSystemTest {
         System.setIn(in);
         Assertions.assertEquals(12, TicketSystem.inputTicketID(120));
         System.setIn(sysInBackup);
-
-//        List<String> inputs = new ArrayList<String>(
-//                Arrays.asList(
-//                        "12"));
-//        List<Object> outputs = Collections.singletonList(new ArrayList<String>(
-//                Arrays.asList("12")));
-//        for(int i=0; i<inputs.size(); i++) {
-//            ByteArrayInputStream in = new ByteArrayInputStream(inputs.get(i).getBytes());
-//            System.setIn(in);
-//            Assertions.assertEquals(outputs.get(i), TicketSystem.inputTicketID(120));
-//        }
-//        System.setIn(sysInBackup);
     }
 
 
